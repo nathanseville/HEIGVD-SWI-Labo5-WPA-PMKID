@@ -5,22 +5,7 @@ from scapy.all import *
 from binascii import a2b_hex, b2a_hex
 # from pbkdf2_math import pbkdf2_hex
 from pbkdf2 import *
-from numpy import array_split
-from numpy import array
 import hmac, hashlib
-
-def customPRF512(key,A,B):
-    """
-    This function calculates the key expansion from the 256 bit PMK to the 512 bit PTK
-    """
-    blen = 64
-    i    = 0
-    R    = b''
-    while i<=((blen*8+159)/160):
-        hmacsha1 = hmac.new(key,A+str.encode(chr(0x00))+B+str.encode(chr(i)),hashlib.sha1)
-        i+=1
-        R = R+hmacsha1.digest()
-    return R[:blen]
 
 # Read capture file -- it contains beacon, authentication, associacion, handshake and data
 wpa=rdpcap('PMKID_handshake.pcap') 
@@ -28,7 +13,6 @@ wpa=rdpcap('PMKID_handshake.pcap')
 # Transform mac from string with semicolon to binary string
 def normalizeMac(mac):
     return a2b_hex(mac.replace(":", ""))
-
 
 # Return an array of SSIDs found in packets. 
 def findSSID(packets, apmac):
@@ -60,7 +44,7 @@ def wordCombinations(words, n):
 
 def PMKID(key, ssid, staMAC, apMAC):
     key = pbkdf2(hashlib.sha1, key, ssid, 4096, 32)
-    return hmac.new(key,str.encode('PMK Name'+str(apMAC)+str(staMAC)),hashlib.sha1).digest()[:128]
+    return hmac.new(key,str.encode('PMK Name'+str(apMAC)+str(staMAC)),hashlib.sha1).digest()[:16]
 
 print(findPMKIDs(wpa))
 
