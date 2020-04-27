@@ -59,13 +59,14 @@ maxc = int(input("Enter maximum words combinations [Int]: "))
 APs = findPMKIDs(wpa)
 
 for ap in APs:
+    ssid = findSSID(wpa, ap)
+            
+    if ssid == None: # Not an AP
+        continue
+
     for i in range(1, maxc+1):
         for key in wordCombinations(words, i):
             pmkid, stamac = APs[ap]
-            ssid = findSSID(wpa, ap)
-            
-            if ssid == None:
-                break
             
             #print(key)
             #print(str.encode(''.join(key)))
