@@ -54,6 +54,16 @@ Utilisant votre script précédent, le modifier pour réaliser les taches suivan
 
 A manière de comparaison, réaliser l'attaque sur le [fichier de capture](files/PMKID_handshake.pcap) utilisant la méthode décrite [ici](https://hashcat.net/forum/thread-7717.html).
 
+#### Etape 1 hcxpcaptool
+
+![hashcat](img/hcxpcaptool.png)
+
+#### Etape 2 hashcat
+
+On a utilisé un très petit charset afin d'accélérer le bruteforce. Dans un environement réel il faudra utiliser charset plus généraliste.
+
+![hashcat](img/hashcat.png)
+
 
 ## Livrables
 
