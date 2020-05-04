@@ -49,6 +49,8 @@ Utilisant votre script précédent, le modifier pour réaliser les taches suivan
    - Identiques &rarr; La passphrase utilisée est correcte
    - Différents &rarr; Essayer avec une nouvelle passphrase
 
+![pmkid_attack](img/pmkid_attack.png)
+
 
 ### 3. Attaque hashcat
 

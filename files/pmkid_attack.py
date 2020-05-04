@@ -38,7 +38,7 @@ def findPMKIDs(packets):
     PMKIDs = {}
 
     for packet in packets:
-        if packet.haslayer(EAPOL):
+        if EAPOL in packet:
             ssid = findSSID(packets, packet.addr2)
             if ssid != None:
                 PMKIDs[ssid] = (packet[Raw].load[-16:], normalizeMac(packet.addr1), normalizeMac(packet.addr2))
@@ -49,7 +49,7 @@ def findPMKIDs(packets):
 def wordCombinations(words, n):
     return list(itertools.combinations(words, n))
 
-# Compute PMKID given the key, ssid, station mac and ap mac. Method of computation come from SWI course.
+# Compute PMKID given the key, ssid, station mac and ap mac. Based on previous lab (WPA).
 def PMKID(key, ssid, staMAC, apMAC):
     key = pbkdf2(hashlib.sha1, key, ssid, 4096, 32)
     return hmac.new(key,str.encode('PMK Name')+apMAC+staMAC,hashlib.sha1).digest()[:16]
